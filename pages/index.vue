@@ -14,6 +14,7 @@ import NuxtLogo from '~/components/NuxtLogo.vue'
 export default {
   name: 'IndexPage',
   components: { NuxtLogo },
+  middleware: 'auth',
   async asyncData({ $axios }) {
     const url = 'https://qiita.com/api/v2/items'
     const response = await $axios.$get(url)
