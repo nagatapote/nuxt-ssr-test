@@ -6,11 +6,14 @@
         <span>{{ post.url }}</span>
       </li>
     </ul>
+    <button @click="handleClickLogout">ログアウト</button>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import NuxtLogo from '~/components/NuxtLogo.vue'
+
 export default {
   name: 'IndexPage',
   components: { NuxtLogo },
@@ -21,6 +24,13 @@ export default {
     return {
       posts: response,
     }
+  },
+  methods: {
+    handleClickLogout() {
+      this.logout()
+      this.$router.push('/user-login')
+    },
+    ...mapActions(['logout']),
   },
 }
 </script>
