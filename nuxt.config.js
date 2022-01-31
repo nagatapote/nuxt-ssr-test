@@ -19,9 +19,12 @@ export default {
   publicRuntimeConfig: {},
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
+  router: {
+    middleware: 'auth',
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: '~/plugins/cookieStorage.js' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
