@@ -24,5 +24,6 @@ export const actions = {
   },
   logout({ commit }) {
     commit('setToken', { token: null, login: null })
+    this.$router.push('/user-login')
   },
 }

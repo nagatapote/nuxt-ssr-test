@@ -6,7 +6,7 @@
         <span>{{ post.url }}</span>
       </li>
     </ul>
-    <button @click="handleClickLogout">ログアウト</button>
+    <button @click="logout">ログアウト</button>
   </div>
 </template>
 
@@ -17,7 +17,6 @@ import NuxtLogo from '~/components/NuxtLogo.vue'
 export default {
   name: 'IndexPage',
   components: { NuxtLogo },
-  middleware: 'auth',
   async asyncData({ $axios }) {
     const url = 'https://qiita.com/api/v2/items'
     const response = await $axios.$get(url)
@@ -26,10 +25,6 @@ export default {
     }
   },
   methods: {
-    handleClickLogout() {
-      this.logout()
-      this.$router.push('/user-login')
-    },
     ...mapActions(['logout']),
   },
 }
