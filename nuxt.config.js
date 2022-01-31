@@ -15,6 +15,7 @@ export default {
   },
   env: {
     BASE_URL: process.env.BASE_URL,
+    SENTRY_DSN: process.env.SENTRY_DSN,
   },
   publicRuntimeConfig: {},
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -41,7 +42,17 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/sentry',
   ],
+  sentry: {
+    dsn: process.env.SENTRY_DSN, // Enter your project's DSN here
+    // Additional Module Options go here
+    // https://sentry.nuxtjs.org/sentry/options
+    config: {
+      // Add native Sentry config here
+      // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
+    },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
