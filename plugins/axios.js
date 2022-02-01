@@ -7,6 +7,10 @@ export default function ({ $axios, store, redirect }) {
     return config
   })
   $axios.onError((error) => {
-    if (error.response.status) redirect('/error-page')
+    if (
+      error.response.status === 401 &&
+      error.response.data.message === 'invalid or expired jwt'
+    )
+      redirect('/error')
   })
 }
