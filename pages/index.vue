@@ -24,7 +24,9 @@ export default {
         posts: res,
       }
     } catch (e) {
-      window.console.error(e)
+      if (process.browser) {
+        window.console.error(e)
+      }
     }
   },
   methods: {
