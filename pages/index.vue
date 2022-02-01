@@ -2,8 +2,8 @@
   <div>
     <NuxtLogo />
     <ul>
-      <li v-for="(post, i) in posts" v-show="i < 3" :key="i">
-        <span>{{ post.url }}</span>
+      <li v-for="(post, i) in posts" :key="i">
+        <span>{{ post }}</span>
       </li>
     </ul>
     <button @click="logout">ログアウト</button>
@@ -18,10 +18,13 @@ export default {
   name: 'IndexPage',
   components: { NuxtLogo },
   async asyncData({ $axios }) {
-    const url = 'https://qiita.com/api/v2/items'
-    const response = await $axios.$get(url)
-    return {
-      posts: response,
+    try {
+      const res = await $axios.$get('/api/user/all')
+      return {
+        posts: res,
+      }
+    } catch (e) {
+      window.console.error(e)
     }
   },
   methods: {
