@@ -19,7 +19,7 @@ export default {
   },
   publicRuntimeConfig: {},
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['~/assets/css/global.css'],
   router: {
     middleware: 'auth',
   },

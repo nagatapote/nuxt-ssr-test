@@ -1,0 +1,69 @@
+:root {
+  /** font **/
+  --font-primary: 'Montserrat', 'Hiragino Sans', sans-serif, -apple-system,
+    BlinkMacSystemFont, Helvetica, Arial;
+
+  /** font-color **/
+  --color-text-primary: rgb(52 52 60 / 80%);
+  --color-text-secondary: #a3adb9;
+  --color-text-tertiary: #73859a;
+  --color-text-error: #f76060;
+
+  --color-primary: #232a47;
+  --color-white: #fff;
+
+  --color-border: #e3e7ec;
+
+  --color-bg-primary: #f2f5fa;
+  --color-bg-secondary: #fff;
+  --color-bg-accent: #312e2e;
+  --color-bg-delete: #f76060;
+
+  /** font-size **/
+  --text-xxs: 10px;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 24px;
+  --text-xxl: 30px;
+
+  /** space **/
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-128: 128px;
+}
+
+/** general **/
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  touch-action: manipulation;
+  font-feature-settings: 'case' 1, 'rlig' 1, 'calt' 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-primary);
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.67;
+  font-size: var(--text-md);
+  font-weight: 400;
+  color: var(--color-text-primary);
+}
