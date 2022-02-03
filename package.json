@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/sentry": "^5.1.6",
+    "@nuxtjs/sentry": "^5.1.7",
     "core-js": "^3.21.0",
     "js-cookie": "^3.0.1",
     "nuxt": "^2.15.8",
