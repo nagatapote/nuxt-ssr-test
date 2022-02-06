@@ -31,23 +31,23 @@ import NuxtLogo from '~/components/NuxtLogo.vue'
 export default {
   name: 'IndexPage',
   components: { NuxtLogo },
-  async asyncData({ $axios }) {
-    try {
-      const res = await $axios.$get('/api/files/')
-      return {
-        posts: res,
-      }
-    } catch (e) {
-      if (process.browser) {
-        window.console.error(e)
-      }
-    }
-  },
+
   data() {
     return {
       selectFileData: null,
       selectFileName: null,
       message: null,
+      posts: null,
+    }
+  },
+  async fetch() {
+    try {
+      const res = await this.$axios.$get('/api/files/')
+      this.posts = res
+    } catch (e) {
+      if (process.browser) {
+        window.console.error(e)
+      }
     }
   },
   methods: {
@@ -84,6 +84,7 @@ export default {
         this.selectFileData = null
         this.selectFileName = null
         this.message = ''
+        this.$fetch()
       } catch (e) {
         if (process.browser) {
           window.alert('アップロードに失敗しました。')
