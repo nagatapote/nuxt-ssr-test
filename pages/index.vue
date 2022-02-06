@@ -3,19 +3,22 @@
     <NuxtLogo />
     <ul>
       <li v-for="(post, i) in posts" :key="i">
-        <span>{{ post }}</span>
+        <span>{{ post.FilesName }}</span
+        ><button @click="fileDownload(post.UploadName, post.FilesName)">
+          ダウンロード
+        </button>
       </li>
     </ul>
     <input v-if="!selectFileData" type="file" @change="selectFile" />
     <span v-if="selectFileData"
       >ファイル名: <span class="file-name">{{ selectFileName }}</span></span
     >
+    <p>{{ message }}</p>
     <p v-if="selectFileData">
       <button @click="uploadFile">アップロード</button>
       <button @click="fileCancel">キャンセル</button>
     </p>
     <p>
-      <button @click="fileDownload">ファイルダウンロード</button>
       <button @click="logout">ログアウト</button>
     </p>
   </div>
@@ -30,7 +33,7 @@ export default {
   components: { NuxtLogo },
   async asyncData({ $axios }) {
     try {
-      const res = await $axios.$get('/api/user/all')
+      const res = await $axios.$get('/api/files/')
       return {
         posts: res,
       }
@@ -44,6 +47,7 @@ export default {
     return {
       selectFileData: null,
       selectFileName: null,
+      message: null,
     }
   },
   methods: {
@@ -62,19 +66,30 @@ export default {
       if (!this.selectFileData) {
         return window.alert('ファイルが選択されていません。')
       }
+      if (this.selectFileName.match(/\./g).length > 1) {
+        return window.alert(
+          'ファイル名に拡張子以外の.（ドット）を含まないでください。'
+        )
+      }
+      this.message = 'ファイルをアップロード中'
       const formData = new FormData()
       formData.append('file', this.selectFileData)
       try {
-        await this.$axios.post('/api/user/upload', formData, {
+        await this.$axios.post('/api/files/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         })
-        this.selectFileData = null
         window.alert('アップロードが完了しました。')
+        this.selectFileData = null
+        this.selectFileName = null
+        this.message = ''
       } catch (e) {
         if (process.browser) {
-          window.console.alert('アップロードに失敗しました。')
+          window.alert('アップロードに失敗しました。')
+          this.selectFileData = null
+          this.selectFileName = null
+          this.message = ''
           window.console.error(e)
         }
       }
@@ -83,23 +98,23 @@ export default {
       this.selectFileData = null
       this.selectFileName = null
     },
-    async fileDownload() {
+    async fileDownload(uploadName, fileName) {
       const res = await this.$axios.post(
-        '/api/user/download',
+        '/api/files/download',
         {
-          filename: 'uploaded_1643203459290932000.jpg',
+          filename: uploadName,
         },
         {
           responseType: 'blob',
           dataType: 'binary',
         }
       )
-      const blob = new Blob([res.data], { type: 'image/jpeg' })
+      const blob = new Blob([res.data], { type: 'multipart/form-data' })
       const url = window.URL.createObjectURL(blob)
 
       const a = document.createElement('a')
       a.href = url
-      a.download = 'uploaded_1643203459290932000.jpg'
+      a.download = fileName
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
