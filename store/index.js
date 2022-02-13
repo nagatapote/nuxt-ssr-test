@@ -16,8 +16,8 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({ commit }, params) {
-    const res = await this.$axios.post('/api/users/login', params)
+  async totpLogin({ commit }, params) {
+    const res = await this.$axios.post('/api/users/totp', params)
     const { token } = res.data
     const login = true
     commit('setToken', { token, login })
